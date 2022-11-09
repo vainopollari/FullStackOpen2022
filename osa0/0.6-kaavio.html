@@ -1,0 +1,21 @@
+title 0.6
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+palvelin-->selain: HTML-sivu
+
+note over selain:
+selain suorittaa html-sivun mukana tulleen js-koodin,
+joka selain renderöi muistiinpanot näytölle
+end note
+
+note over selain:
+Käyttäjä kirjoittaa tekstikenttään uuden muisiipanon ja
+painaa tämån jälkeen "tallenna"
+end note
+
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+palvelin-->selain: Statuscode: 201 Created
+
+note over selain:
+Selain renderöi palvelimen tallentaman uuden muistiinpanon näytölle
+end note
