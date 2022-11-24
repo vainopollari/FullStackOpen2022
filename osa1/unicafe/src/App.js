@@ -9,9 +9,21 @@ const Button = (props) => {
 }
 
 const Statistics = (props) => {
+  if (props.averagelist.length === 0) {
+    return (
+      <div>
+        No feedback given
+      </div>
+    )
+  }
   return (
     <div>
-      {props.name} {props.result}
+      {props.namegood} {props.resultgood} < br />
+      {props.nameneutral} {props.resultneutral} < br />
+      {props.namebad} {props.resultbad} < br />
+      {props.nameaverage} {props.averagelist.reduce((a, b) => a + b, 0) / props.averagelist.length} < br />
+      {props.positivename} {props.positiveresult / (props.resultgood + props.resultbad + props.resultneutral)} %
+
     </div>
   )
 }
@@ -55,28 +67,17 @@ const App = () => {
       />
       <h1>Statistics</h1>
       <Statistics
-        result={good}
-        name='good' 
-      />
-      <br />
-      <Statistics
-        result={bad}
-        name='bad' 
-      />
-      <br />
-      <Statistics
-        result={neutral}
-        name='neutral' 
-      />
-      <br />
-      <Statistics
-        result={average.reduce((a, b) => a + b, 0) / average.length}
-        name='average' 
-      />
-      <br />
-      <Statistics
-        result={positive / (good + neutral + bad)}
-        name='positive' 
+        resultgood={good}
+        namegood='good'
+        resultneutral={neutral}
+        nameneutral='neutral'
+        resultbad={bad} 
+        namebad='bad'
+        averagelist={average}
+        nameaverage='average'
+        positivename='positive'
+        positiveresult={positive}
+
       />
     </div>
   )
