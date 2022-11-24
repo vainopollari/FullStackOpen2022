@@ -8,6 +8,21 @@ const Button = (props) => {
   )
 }
 
+const StatisticLine = (props) => {
+  if (props.text === 'positive') {
+    return (
+      <div>
+        {props.text} {props.value} %
+      </div>
+    )
+  }
+  return (
+    <div>
+      {props.text} {props.value}
+    </div>
+  )
+}
+
 const Statistics = (props) => {
   if (props.averagelist.length === 0) {
     return (
@@ -18,12 +33,11 @@ const Statistics = (props) => {
   }
   return (
     <div>
-      {props.namegood} {props.resultgood} < br />
-      {props.nameneutral} {props.resultneutral} < br />
-      {props.namebad} {props.resultbad} < br />
-      {props.nameaverage} {props.averagelist.reduce((a, b) => a + b, 0) / props.averagelist.length} < br />
-      {props.positivename} {props.positiveresult / (props.resultgood + props.resultbad + props.resultneutral)} %
-
+      <StatisticLine text='good' value={props.resultgood} />
+      <StatisticLine text='neutral' value={props.resultneutral} />
+      <StatisticLine text='bad' value={props.resultbad} />
+      <StatisticLine text='average' value={props.averagelist.reduce((a, b) => a + b, 0) / props.averagelist.length} />
+      <StatisticLine text='positive' value={props.positiveresult / (props.resultgood + props.resultbad + props.resultneutral)} />
     </div>
   )
 }
@@ -68,16 +82,10 @@ const App = () => {
       <h1>Statistics</h1>
       <Statistics
         resultgood={good}
-        namegood='good'
         resultneutral={neutral}
-        nameneutral='neutral'
         resultbad={bad} 
-        namebad='bad'
         averagelist={average}
-        nameaverage='average'
-        positivename='positive'
         positiveresult={positive}
-
       />
     </div>
   )
