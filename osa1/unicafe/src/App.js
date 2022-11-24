@@ -8,6 +8,14 @@ const Button = (props) => {
   )
 }
 
+const Statistics = (props) => {
+  return (
+    <div>
+      {props.name} {props.result}
+    </div>
+  )
+}
+
 const App = () => {
 
   const [good, setGood] = useState(0)
@@ -46,12 +54,30 @@ const App = () => {
         text='bad'
       />
       <h1>Statistics</h1>
-      good {good} <br />
-      neutral {neutral} <br />
-      bad {bad} <br />
-      average {average.reduce((a, b) => a + b, 0) / average.length} <br />
-      positive {positive / (good + neutral + bad)}
-
+      <Statistics
+        result={good}
+        name='good' 
+      />
+      <br />
+      <Statistics
+        result={bad}
+        name='bad' 
+      />
+      <br />
+      <Statistics
+        result={neutral}
+        name='neutral' 
+      />
+      <br />
+      <Statistics
+        result={average.reduce((a, b) => a + b, 0) / average.length}
+        name='average' 
+      />
+      <br />
+      <Statistics
+        result={positive / (good + neutral + bad)}
+        name='positive' 
+      />
     </div>
   )
 }
