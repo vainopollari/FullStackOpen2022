@@ -13,10 +13,22 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [average, setAverage] = useState([])
+  const [positive, setPositve] = useState(0)
 
-  const increaseGood = () => setGood(good + 1)
-  const increaseNeutral = () => setNeutral(neutral + 1)
-  const increaseBad = () => setBad(bad + 1)
+  const increaseGood = () => {
+    setGood(good + 1)
+    setPositve(positive + 1)
+    setAverage(average.concat(1))
+  }
+  const increaseNeutral = () =>  {
+    setNeutral(neutral + 1)
+    setAverage(average.concat(0))
+  }
+  const increaseBad = () => {
+    setBad(bad + 1)
+    setAverage(average.concat(-1))
+  } 
 
   return (
     <div>
@@ -36,7 +48,9 @@ const App = () => {
       <h1>Statistics</h1>
       good {good} <br />
       neutral {neutral} <br />
-      bad {bad}
+      bad {bad} <br />
+      average {average.reduce((a, b) => a + b, 0) / average.length} <br />
+      positive {positive / (good + neutral + bad)}
 
     </div>
   )
