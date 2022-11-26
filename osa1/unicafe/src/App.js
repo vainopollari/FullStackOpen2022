@@ -11,15 +11,18 @@ const Button = (props) => {
 const StatisticLine = (props) => {
   if (props.text === 'positive') {
     return (
-      <div>
-        {props.text} {props.value} %
-      </div>
+      <tr>
+        <td>{props.text}</td>
+        <td>{props.value * 100} % </td>
+      </tr>
+       
     )
   }
   return (
-    <div>
-      {props.text} {props.value}
-    </div>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
   )
 }
 
@@ -32,13 +35,13 @@ const Statistics = (props) => {
     )
   }
   return (
-    <div>
+    <table>
       <StatisticLine text='good' value={props.resultgood} />
       <StatisticLine text='neutral' value={props.resultneutral} />
       <StatisticLine text='bad' value={props.resultbad} />
       <StatisticLine text='average' value={props.averagelist.reduce((a, b) => a + b, 0) / props.averagelist.length} />
       <StatisticLine text='positive' value={props.positiveresult / (props.resultgood + props.resultbad + props.resultneutral)} />
-    </div>
+    </table>
   )
 }
 
