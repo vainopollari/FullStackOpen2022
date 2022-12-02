@@ -21,39 +21,28 @@ const Content = (props) => {
   )
 }
 
-/*
+
 const Total = (props) => {
+  console.log(props.partlist)
+  var result = props.partlist.reduce(function (acc, obj) { return acc + obj.exercises; }, 0)
+  console.log("sum is ", result)
   return (
     <div>
-      {props.partlist.map(content => 
-        <li key={content.id}>
-          {content.exercises}
-        </li>
-      )}
+      Total of {result} exercises
     </div>
   )
 }
-*/
+
 
 const Course = (props) => {
   return (
     <div>
       <Header name={props.course.name} />
       <Content partlist={props.course.parts}/>
-
+      <Total partlist={props.course.parts}/>
     </div>
   )
 }
-
-/*
-const Part = (props) => {
-  return (
-    <div>
-      {props.name} {props.sum}
-    </div>
-  )
-}
-*/
 
 
 const App = () => {
