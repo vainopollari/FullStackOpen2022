@@ -1,5 +1,44 @@
 import { useState } from 'react'
 
+const Filter = (props) => {
+  return (
+    <div>
+      {props.text} <input value={props.value} onChange={props.handler} />
+    </div>
+  )
+}
+
+const Personform = (props) => {
+  return (
+    <form onSubmit={props.submit}>
+      <div>
+        {props.nametext} <input value={props.valuename} onChange={props.handlechangename} />
+      </div>
+      <div>
+        {props.numbertext} <input value={props.valuenumber} onChange={props.handlechangenumber} />
+      </div>
+      <div>
+        <button type="submit">add</button>
+      </div>
+    </form>
+  )
+}
+
+const Persons = (props) => {
+  return (
+    <div>
+      <ul>
+        {props.func.map(content => 
+          <li key={content.name}>
+            {content.name} {content.number}
+          </li>
+        )}
+      </ul>
+    </div>
+  )
+}
+
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-1234567' },
@@ -23,7 +62,6 @@ const App = () => {
   const handleFilter = (event) => {
     setShowAll(false)
     setFilterValue(event.target.value)
-    console.log(filterValue)
   }
 
   const handlechange = (event) => {
@@ -50,29 +88,23 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with <input value={filterValue} onChange={handleFilter} />
-      </div>
-      <h2>add a new</h2>
-      <form onSubmit={addName}>
-        <div>
-          name: <input value={newName} onChange={handlechange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberchange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-        {personsToShow.map(content => 
-          <li key={content.name}>
-            {content.name} {content.number}
-          </li>
-        )}
-      </ul>
+      <Filter 
+        text='filter with:'
+        value={filterValue} 
+        handler={handleFilter} 
+      />
+      <h3>add a new</h3>
+      <Personform
+        nametext='name:'
+        valuename={newName}
+        numbertext='number:'
+        valuenumber={newNumber}
+        handlechangename={handlechange}
+        handlechangenumber={handleNumberchange}
+        submit={addName}     
+      />
+      <h3>Numbers</h3>
+      <Persons func={personsToShow} />
     </div>
   )
 
