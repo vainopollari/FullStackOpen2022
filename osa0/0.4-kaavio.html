@@ -13,7 +13,7 @@ joka pyytää JSON-datan palvelimelta
 end note
 
 selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
-palvelin-->selain: [{ content: "HTML on helppoa", date: "2019-01-01" }, ...]
+palvelin-->selain: [...]
 
 note over selain:
 selain suorittaa tapahtumankäsittelijän
@@ -21,8 +21,8 @@ joka renderöi muistiinpanot näytölle
 end note
 
 note over selain:
-Käyttäjä kirjoittaa tekstikenttään uuden muisiipanon ja
-painaa tämån jälkeen "tallenna"
+Käyttäjä kirjoittaa tekstikenttään uuden muistiinpanon ja
+painaa tämän jälkeen "tallenna"
 end note
 
 selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
