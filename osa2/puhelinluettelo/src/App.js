@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import personService from './services/persons'
+import './index.css'
 
 const Filter = (props) => {
   return (
@@ -34,6 +35,18 @@ const PersonInfo = ({ personContent, deleteinfo }) => {
   )
 }
 
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="alert">
+      {message}
+    </div>
+  )
+}
+
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -45,6 +58,8 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
 
   const [filterValue, setFilterValue] = useState('')
+
+  const [alertMessage, setAlert] = useState(null)
 
   useEffect(() => {
     personService
@@ -83,6 +98,10 @@ const App = () => {
         .add(nameObject)
         .then(response => {
           setPersons(persons.concat(response.data))
+          setAlert(`${newName} added!`)
+          setTimeout(() => {
+            setAlert(null)
+          }, 4000)
           setNewName('')
           setNewNumber('')
         })
@@ -99,6 +118,10 @@ const App = () => {
         .then(response => {
           setPersons(persons.concat())
         })
+        setAlert(`${removethis.name} removed!`)
+          setTimeout(() => {
+            setAlert(null)
+          }, 4000)
     }
 
   }
@@ -106,6 +129,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={alertMessage} />
       <Filter 
         text='filter with:'
         value={filterValue} 
