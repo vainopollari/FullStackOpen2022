@@ -25,17 +25,12 @@ const Personform = (props) => {
   )
 }
 
-const Persons = (props) => {
+const PersonInfo = ({ personContent, deleteinfo }) => {
   return (
-    <div>
-      <ul>
-        {props.func.map(content => 
-          <li key={content.name}>
-            {content.name} {content.number}
-          </li>
-        )}
-      </ul>
-    </div>
+    <li>
+      {personContent.name} {personContent.number}
+      <button onClick={deleteinfo}>delete</button>
+    </li>
   )
 }
 
@@ -87,11 +82,25 @@ const App = () => {
       personService
         .add(nameObject)
         .then(response => {
-          setPersons(persons.concat(nameObject))
+          setPersons(persons.concat(response.data))
           setNewName('')
           setNewNumber('')
         })
     }
+  }
+
+  const deleteName = (id) => {
+    const removethis = persons.find(n => n.id === id)
+    const index = persons.indexOf(removethis)
+    persons.splice(index, 1)
+    if(window.confirm(`Delete ${removethis.name}?`)) {
+      personService
+        .deletePerson(id)
+        .then(response => {
+          setPersons(persons.concat())
+        })
+    }
+
   }
 
   return (
@@ -113,7 +122,15 @@ const App = () => {
         submit={addName}     
       />
       <h3>Numbers</h3>
-      <Persons func={personsToShow} />
+      <ul>
+        {personsToShow.map(person => 
+          <PersonInfo
+            key={person.name}
+            personContent={person} 
+            deleteinfo={() => deleteName(person.id)}
+          />
+        )}
+      </ul>
     </div>
   )
 
