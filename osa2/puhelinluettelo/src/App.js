@@ -91,7 +91,12 @@ const App = () => {
     event.preventDefault()
     const nameObject = { name: newName, number: newNumber}
     if (persons.filter(elem => elem.name === nameObject.name).length > 0) {
-      alert(`${newName} is already added to phonebook`)
+      setAlert(`${newName} is already added to phonebook!`)
+          setTimeout(() => {
+            setAlert(null)
+          }, 4000)
+          setNewName('')
+          setNewNumber('')
     }
     else {
       personService
